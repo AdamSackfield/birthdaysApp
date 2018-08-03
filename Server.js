@@ -6,6 +6,8 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 
+const BirthdayRoutes = require('./routes/Birthday')
+
 // Server and Port Setup
 const PORT = process.env.PORT || 8080
 const Server = express()
@@ -27,6 +29,7 @@ if(!dev) {
   Server.use(loggser('common'))
 }
 Server.use(bodyParser.json())
+Server.use('/api', BirthdayRoutes)
 
 // Start the Server
 Server.listen(PORT, () => {

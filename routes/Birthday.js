@@ -1,5 +1,6 @@
 const Router = require('express').Router()
 const Birthday = require('../models/Birthday')
+const moment = require('moment')
 
 // GET all Birthdays
 Router.get('/birthdays', (req, res) => {
@@ -37,6 +38,24 @@ Router.post('/new', (req, res) => {
     res.json({
       success: true,
       message: 'Birthday Added',
+      birthday
+    })
+  })
+})
+
+// DELETE a birthday
+Router.delete('/delete', (req, res) => {
+  Birthday.findByIdAndRemove(req.body._id, (err, birthday) => {
+    if(err) {
+      res.json({
+        success: false,
+        message: 'Failed to DELETE Birthday',
+        err
+      })
+    }
+    res.json({
+      success: true,
+      message: 'Birthday Removed',
       birthday
     })
   })
